@@ -140,8 +140,8 @@ export const tools = [
   {
     name: 'kaufland_list_units', title: 'List my offers', annotations: READ,
     description: 'Lists your own offers (units / listings) with stock, price and status.',
-    inputSchema: schema({ limit: limit(100, 1000), offset, embedded: str('Embeds, e.g. product.'), compact, storefront }),
-    run: async (a, api) => page(await api.units(clean({ embedded: a.embedded, offset: a.offset }), { max: a.limit || 100 }, a.storefront), a.compact === false ? null : compactUnit),
+    inputSchema: schema({ limit: limit(100, 1000), offset, embedded: str('Embeds: products (adds EAN and title), eco_participation, battery_participation. Default products.'), compact, storefront }),
+    run: async (a, api) => page(await api.units(clean({ embedded: a.embedded ?? 'products', offset: a.offset }), { max: a.limit || 100 }, a.storefront), a.compact === false ? null : compactUnit),
   },
   {
     name: 'kaufland_get_unit', title: 'Offer details', annotations: READ,
