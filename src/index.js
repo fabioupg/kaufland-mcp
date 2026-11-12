@@ -31,14 +31,14 @@ function page(title, inner, status = 200, headers) {
   h.set('Cache-Control', 'no-store');
   h.set('X-Frame-Options', 'DENY');
   h.set('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; form-action 'self' https: http://localhost:* http://127.0.0.1:*; frame-ancestors 'none'");
-  h.set('Referrer-Policy', 'no-referrer');
+  h.set('Referrer-Policy', 'same-origin');
   return new Response(`<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><style>
 body{font-family:system-ui,sans-serif;background:#f4f4f5;margin:0;display:grid;place-items:center;min-height:100vh;color:#18181b}
 main{background:#fff;padding:2rem;border-radius:12px;max-width:420px;width:calc(100% - 3rem);box-shadow:0 1px 3px #0002}
 h1{font-size:1.3rem;margin:0 0 1rem}p{line-height:1.45}code{background:#f4f4f5;padding:.1rem .3rem;border-radius:4px;word-break:break-all}
 input{width:100%;box-sizing:border-box;padding:.7rem;font-size:1rem;border:1px solid #d4d4d8;border-radius:8px;margin:.4rem 0 1rem}
-.row{display:flex;gap:.6rem}button{flex:1;padding:.7rem;font-size:1rem;border-radius:8px;border:0;cursor:pointer}
+.row{display:flex;flex-direction:row-reverse;gap:.6rem}button{flex:1;padding:.7rem;font-size:1rem;border-radius:8px;border:0;cursor:pointer}
 .ok{background:#e10915;color:#fff}.no{background:#e4e4e7}.err{color:#b91c1c}.warn{background:#fef3c7;padding:.6rem;border-radius:8px}
 </style></head><body><main>${inner}</main></body></html>`, { status, headers: h });
 }
@@ -52,7 +52,7 @@ ${error ? `<p class="err">${esc(error)}</p>` : ''}
 <form method="post" action="/authorize">
 <input type="hidden" name="handle" value="${esc(handle)}">
 <label>Passwort<input type="password" name="password" autocomplete="current-password" autofocus></label>
-<div class="row"><button class="no" name="action" value="deny">Ablehnen</button><button class="ok" name="action" value="approve">Erlauben</button></div>
+<div class="row"><button class="ok" name="action" value="approve">Erlauben</button><button class="no" name="action" value="deny" formnovalidate>Ablehnen</button></div>
 </form>`;
 }
 

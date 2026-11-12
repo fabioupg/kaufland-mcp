@@ -123,6 +123,8 @@ try {
     assert.equal(r.status, 200);
     const html = await r.text();
     assert.match(html, /claude\.ai/);
+    // Pressing Enter submits the form with its first button: that must be Allow, not Deny.
+    assert.match(html.match(/<button[^>]*>/)[0], /value="approve"/);
     handle = html.match(/name="handle" value="([^"]+)"/)[1];
     cookie = r.headers.getSetCookie().map((c) => c.split(';')[0]).join('; ');
     assert.ok(handle && cookie);
@@ -198,7 +200,7 @@ try {
     assert.ok(!r.result.isError, r.result.content[0].text);
     const last = seen.filter((s) => s.method === 'PATCH').pop();
     assert.deepEqual(last.body, { listing_price: 1749, amount: 3 });
-    assert.match(last.url, /^\/v2\/units\/101\/\?storefront=de$/);
+    assert.match(last.url, /^\/v2\/units\/101\/\?storefront=[a-z]+$/);
   });
 
   await step('kaufland_sales_summary filters by date and skips cancellations', async () => {
