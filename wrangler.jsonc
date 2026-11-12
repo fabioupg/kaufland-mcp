@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kaufland-mcp",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  // OAuth clients, grants and tokens are stored here. Wrangler creates the namespace on first deploy.
+  "kv_namespaces": [{ "binding": "OAUTH_KV" }],
+  "vars": {
+    "KAUFLAND_STOREFRONT": "de",
+    "KAUFLAND_USER_AGENT": "Inhouse_development",
+    // Where OAuth may redirect after login (comma-separated hostnames). Loopback (Claude Code) is allowed unless ALLOW_LOOPBACK_REDIRECTS=false.
+    "ALLOWED_REDIRECT_HOSTS": "claude.ai,claude.com"
+  }
+  // Secrets (never in this file): npx wrangler secret put KAUFLAND_CLIENT_KEY / KAUFLAND_SECRET_KEY / ACCESS_PASSWORD
+}

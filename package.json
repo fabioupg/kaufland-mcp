@@ -1,0 +1,27 @@
+{
+  "name": "kaufland-mcp",
+  "version": "1.0.0",
+  "description": "Kaufland Marketplace Seller API v2: CLI + remote MCP server (Cloudflare Worker) for Claude and other MCP clients",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test \"test/*.test.js\"",
+    "test:e2e": "node test/e2e.mjs",
+    "cli": "node kaufland.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^1.2.4"
+  },
+  "devDependencies": {
+    "wrangler": "^4.161.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261110.1": true
+  }
+}
